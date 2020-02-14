@@ -1,0 +1,99 @@
+<section>
+    <div class="card">
+        <div class="card-image">
+            <div>
+                <img onmousedown="return false" src="assets/pkmn/151.png">
+                <i class="fa fa-circle-o-notch fa-spin" style="visibility: hidden;"></i>
+            </div>
+        </div>
+        <div class="card-content">
+            <h1 class="title has-text-centered">
+                <span>Roussil</span> - N°<span>654</span>
+            </h1>
+            <br />
+            <div class="button-row">
+                <div class="field has-addons">
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Nom du Pokémon" [value]="inputPokemon"
+                            (change)="changeInputPokemon($event)">
+                    </div>
+                    <div class="control">
+                        <button class="button  is-success is-outlined" (click)="check()">
+                            <span class="icon">
+                                <fa-icon [icon]="faCheck"></fa-icon>
+                            </span>
+                            <span>Vérifier</span>
+                        </button>
+                    </div>
+                </div>
+                <button class="button is-primary" (click)="refresh()">
+                    <span class="icon">
+                        <fa-icon [icon]="faSync"></fa-icon>
+                    </span>
+                    <span>Rafraichir</span>
+                </button>
+                <button class="button is-info" (click)="response()">
+                    <span class="icon">
+                        <fa-icon [icon]="faEye"></fa-icon>
+                    </span>
+                    <span>Réponse</span>
+                </button>
+            </div>
+
+            <br />
+
+            <h2 class="subtitle has-text-centered">Générations :</h2>
+            <div class="button-row">
+
+                <label class="checkbox">
+                    <input type="checkbox" [checked]="gens.one" (change)="changeGen('one',$event)">
+                    Gen. 1
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" [checked]="gens.two" (change)="changeGen('two',$event)">
+                    Gen. 2
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" [checked]="gens.three" (change)="changeGen('three',$event)">
+                    Gen. 3
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" [checked]="gens.four" (change)="changeGen('four',$event)">
+                    Gen. 4
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" [checked]="gens.five" (change)="changeGen('five',$event)">
+                    Gen. 5
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" [checked]="gens.six" (change)="changeGen('six',$event)">
+                    Gen. 6
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" [checked]="gens.seven">
+                    Gen. 7
+                </label>
+            </div>
+
+            <br />
+
+            <h2 class="subtitle has-text-centered">Langue :</h2>
+            <div class="control has-text-centered">
+                <label class="radio">
+                    <input type="radio" name="lang" checked [(ngModel)]="lang" value="fr">
+                    Français
+                </label>
+                <label class="radio">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="en">
+                    Anglais
+                </label>
+            </div>
+        </div>
+    </div>
+</section>
