@@ -1,0 +1,97 @@
+<div class="modal is-active" style="z-index: 999;">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Settings</p>
+            <button class="delete" aria-label="close" (click)="dismiss()"></button>
+        </header>
+        <section class="modal-card-body">
+            <h2 class="subtitle has-text-centered">Generations :</h2>
+            <div class="button-row">
+
+                <label class="checkbox">
+                    <input type="checkbox" [checked]="gens.one" (change)="changeGen('one',$event)">
+                    Gen. 1
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" [checked]="gens.two" (change)="changeGen('two',$event)">
+                    Gen. 2
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" [checked]="gens.three" (change)="changeGen('three',$event)">
+                    Gen. 3
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" [checked]="gens.four" (change)="changeGen('four',$event)">
+                    Gen. 4
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" [checked]="gens.five" (change)="changeGen('five',$event)">
+                    Gen. 5
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" [checked]="gens.six" (change)="changeGen('six',$event)">
+                    Gen. 6
+                </label>
+
+                <label class="checkbox">
+                    <input type="checkbox" [checked]="gens.seven" (change)="changeGen('seven',$event)">
+                    Gen. 7
+                </label>
+            </div>
+
+            <br />
+
+            <h2 class="subtitle has-text-centered">Language :</h2>
+            <div class="control has-text-centered">
+                <label class="radio">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="en">
+                    English
+                </label>
+                <label class="radio">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="fr">
+                    French
+                </label>
+                <label class="radio">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="de">
+                    German
+                </label>
+                <label class="radio">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="ja">
+                    Japanese
+                </label>
+                <label class="radio">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="ko">
+                    Korean
+                </label>
+                <label class="radio">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="zh-hans">
+                    Simplified Chinese
+                </label>
+                <label class="radio">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="zh-hant">
+                    Traditional Chinese
+                </label>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success" (click)="save()">
+                <span class="icon">
+                    <fa-icon [icon]="faSave"></fa-icon>
+                </span>
+                <span>Save</span>
+            </button>
+            <button class="button" (click)="dismiss()">
+                <span class="icon">
+                    <fa-icon [icon]="faTimes"></fa-icon>
+                </span>
+                <span>Cancel</span>
+            </button>
+        </footer>
+    </div>
+</div>

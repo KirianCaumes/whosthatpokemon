@@ -1,0 +1,12 @@
+app-settings-modal {
+    .button-row {
+      display: flex;
+      justify-content: center;
+      > * {
+        margin: 0 0.5em;
+      }
+    }
+    h2 {
+      margin-bottom: .5rem;
+    }
+}
