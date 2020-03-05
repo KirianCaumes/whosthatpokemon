@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
+import { SettingsModalComponent } from './component/settings-modal/settings-modal.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        MainPageComponent
+        MainPageComponent,
+        SettingsModalComponent
     ],
     imports: [
         BrowserModule,
