@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faSync, faEye, faCheck, faAngleUp } from '@fortawesome/free-solid-svg-icons';
+import { SimilarityService } from '../service/similarity/similarity.service'
 
 @Component({
     selector: 'app-main-page',
@@ -29,9 +30,10 @@ export class MainPageComponent implements OnInit {
     //Input value
     inputPokemon = ""
 
-    constructor() { }
+    constructor(private similarityService: SimilarityService) { }
 
     ngOnInit() {
+        console.log(this.similarityService.getScore("123","1223"))
     }
 
     //Handle chnage for pokemon input

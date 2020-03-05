@@ -1,16 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MainPageComponent } from './main-page.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
 
 describe('MainPageComponent', () => {
     let component: MainPageComponent;
     let fixture: ComponentFixture<MainPageComponent>;
-
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [MainPageComponent]
-        })
-            .compileComponents();
+            imports: [
+                FontAwesomeModule,
+                FormsModule
+            ],
+            declarations: [
+                MainPageComponent
+            ],
+        }).compileComponents();
     }));
 
     beforeEach(() => {
