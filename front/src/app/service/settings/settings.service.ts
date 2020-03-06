@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class SettingsService {
     //Generations
-    gens = { one: true, two: true, three: true, four: true, five: true, six: true, seven: true }
+    gens = { one: true, two: true, three: true, four: true, five: true, six: true, seven: false }
 
     //Lang
     lang = "fr"

@@ -2,13 +2,13 @@
     <div class="card">
         <div class="card-image">
             <div>
-                <img onmousedown="return false" src="assets/pkmn/{{pokemon.id_pokemon}}.png">
+                <img *ngIf="pokemon.id_pokemon" onmousedown="return false" src="assets/pkmn/{{pokemon.id_pokemon}}.png">
                 <i class="fa fa-circle-o-notch fa-spin" style="visibility: hidden;"></i>
             </div>
         </div>
         <div class="card-content">
             <h1 class="title has-text-centered">
-                <span [hidden]="!isAnswerDisplayed"><span>{{pokemon.translate[settingsService.getSettings().lang]}}</span> -
+                <span [hidden]="!isAnswerDisplayed"><span>{{pokemon.name[settingsService.getSettings().lang]}}</span> -
                     N°<span>{{pokemon.id_pokemon}}</span></span>
                 <span [hidden]="isAnswerDisplayed">&nbsp;</span>
             </h1>

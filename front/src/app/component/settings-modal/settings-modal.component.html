@@ -39,8 +39,8 @@
                     Gen. 6
                 </label>
 
-                <label class="checkbox">
-                    <input type="checkbox" [checked]="gens.seven" (change)="changeGen('seven',$event)">
+                <label class="checkbox" style="text-decoration: line-through;cursor:not-allowed;">
+                    <input type="checkbox" [checked]="gens.seven" (change)="changeGen('seven',$event)" disabled>
                     Gen. 7
                 </label>
             </div>

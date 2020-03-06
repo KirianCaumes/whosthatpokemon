@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { faSync, faEye, faCheck, faAngleUp, faCog} from '@fortawesome/free-solid-svg-icons';
-import { SimilarityService } from '../service/similarity/similarity.service'
+import { faSync, faEye, faCheck, faAngleUp, faCog } from '@fortawesome/free-solid-svg-icons';
+import { SimilarityService } from '../service/similarity/similarity.service';
 import { SettingsService } from '../service/settings/settings.service';
+import { ApiServiceService } from '../service/api-service/api-service.service';
 
 @Component({
     selector: 'app-main-page',
@@ -19,7 +20,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     inputPokemon = ""
 
     //Pokemon infos
-    pokemon = { "id_pokemon": 25, "translate": { "fr": "Pikachu", "en": null, "de": null, "ja": null, "ko": null, "ru": null, "zh-hans": null, "zh-hant": null }, "generation": 1, "is_enable": true }
+    pokemon = { "id_pokemon": null, "name": { "fr": null, "en": null, "de": null, "ja": null, "ko": null, "ru": null, "zh-hans": null, "zh-hant": null }, "generation": 1, "is_enable": true }
 
     isAnswerDisplayed: Boolean = false
 
@@ -35,11 +36,14 @@ export class MainPageComponent implements OnInit, OnDestroy {
     messageDisplayed = ""
 
     isModalOpen = false
+    resApiPkm = {}
 
-    constructor(private similarityService: SimilarityService, private settingsService: SettingsService) {
+    constructor(private similarityService: SimilarityService, private settingsService: SettingsService, private apiServiceService: ApiServiceService) {
+
     }
 
     ngOnInit() {
+        this.refresh()
     }
 
     ngOnDestroy() {
@@ -69,9 +73,11 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
     //Refresh pokemon
     refresh() {
+        this.pokemon = { "id_pokemon": null, "name": { "fr": null, "en": null, "de": null, "ja": null, "ko": null, "ru": null, "zh-hans": null, "zh-hant": null }, "generation": 1, "is_enable": true }
         this.isAnswerDisplayed = false
         this.messageDisplayed = ""
         this.inputPokemon = ""
+        this.apiServiceService.getOneRandomPkm().subscribe(pokemon => this.pokemon = pokemon);
     }
 
     //Show response
