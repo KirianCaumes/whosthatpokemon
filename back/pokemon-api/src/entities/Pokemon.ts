@@ -1,12 +1,15 @@
 import { Document } from 'mongoose';
 
 export interface Pokemon extends Document {
-    readonly _id_pokemon : Number,
+    readonly id_pokemon : Number,
     readonly name: {
-        Fr:String,
-        En:String,
-        SP:String,
-        DE:String,
+        fr:String,
+        en:String,
+        ja:String,
+        de:String, 
+        ko:String,
+        "zh-hans":String,
+        "zh-hant":String,
     },
     readonly generation : Number,
     readonly enable: Boolean,
