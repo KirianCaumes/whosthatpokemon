@@ -1,77 +1,128 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import Pretender from 'pretender';
-const factory = require('factory-girl').factory;
-const Pokemon = require('./models/PokemonSchema');
-
-var reponse =  JSON.stringify([
-  {
-      "name": {
-          "Fr": "Gurtchoin",
-          "En": "gurbitch",
-          "SP": "gurputa",
-          "DE": "gurFURHER"
-      },
-      "_id": "5e46bbaab71b914c582fa1f8",
-      "_id_pokemon": 2,
-      "generation": 1,
-      "enable": true,
-      "__v": 0
-  },
-  {
-      "name": {
-          "Fr": "MaxiCoronavirus",
-          "En": "MaxiCoronavirusShit",
-          "SP": "MaxiCoronavirusDansKinderSurprise",
-          "DE": "MaxiCoronavirusFURHER"
-      },
-      "_id": "5e46bbaab71b914c582fa1f9",
-      "_id_pokemon": 1,
-      "generation": 1,
-      "enable": true,
-      "__v": 0
-  },
-  {
-      "name": {
-          "Fr": "Antchoin",
-          "En": "LA JACK DANS LE GOSIER",
-          "SP": "Anthonio Escobar",
-          "DE": "Mein kampf"
-      },
-      "_id": "5e46bbaab71b914c582fa1fa",
-      "_id_pokemon": 3,
-      "generation": 1,
-      "enable": true,
-      "__v": 0
-  }
-]);
+import { AppModule } from './app.module';
+import * as request from 'supertest';
 
 
-const server = new Pretender(function() {
-  this.get('/api/pokemon/', request => {
-    
-    return [200, {"Content-Type": "application/json"}, reponse]
-  });
 
-  this.get('/photos/:id', request => {
-    return [200, {"Content-Type": "application/json"}, ""]
-  });
-});
 
-describe('AppController', () => {
-  let appController: AppController;
-
+describe('AppController CRUD', () => {
+  let app;
+  let server;
   beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [AppService],
+    const module = await Test.createTestingModule({
+      imports: [AppModule]
     }).compile();
-
-    appController = app.get<AppController>(AppController);
+    app = await module.createNestApplication();
+    server = app.getHttpServer();
+    app.init();
+    await request(server).delete('/api/pokemon/deleteALL').set('Accept', 'application/json')
   });
 
-  describe('root', () => {
+  test('GET all pokemons', async () => {
+    await request(server).post('/api/pokemon/createALL')
+    await request(server).get('/api/pokemon/').expect(({ body }) => body.length === 890);
+  });
+  
 
+  test('GET a pokemon', async () => {
+    await request(server).post('/api/pokemon/createALL')
+    await request(server).get('/api/pokemon/1').expect(({ body }) => body.id_pokemon === 1);
+  });
+
+  test('UPDATE a pokemon', async () => {
+    let monPokemon = {
+      "id_pokemon":1,
+      "name":{
+         "fr":"Bulbizarre",
+         "en":"Bulbasaur",
+         "de":"Bisasam",
+         "ja":"フシギダネ",
+         "ko":"이상해씨",
+         "ru":"Бульбазавр",
+         "zh-hans":"妙蛙种子",
+         "zh-hant":"妙蛙種子"
+      },
+      "generation":1,
+      "enable":true
+   };
+
+   await request(server)
+      .post('/api/pokemon/create')
+      .send(monPokemon)
+
+    monPokemon = {
+      "id_pokemon":1,
+      "name":{
+          "fr":"BOOOM",
+          "en":"BOOOM",
+          "de":"BOOMM",
+          "ja":"BOOOM",
+          "ko":"BOOOM",
+          "ru":"BOOOM",
+          "zh-hans":"BOOOM",
+          "zh-hant":"BOOOM"
+      },
+      "generation":1,
+      "enable":true
+    };
+    await request(server)
+      .put('/api/pokemon/update/1')
+      .send(monPokemon)
+      .expect(({ body }) => body.name === monPokemon.name);
+
+
+  });
+
+  test('CREATE a pokemon', async () => {
+    const monPokemon = {
+      "id_pokemon":1,
+      "name":{
+          "fr":"Bulbizarre",
+          "en":"Bulbasaur",
+          "de":"Bisasam",
+          "ja":"フシギダネ",
+          "ko":"이상해씨",
+          "ru":"Бульбазавр",
+          "zh-hans":"妙蛙种子",
+          "zh-hant":"妙蛙種子"
+      },
+      "generation":1,
+      "enable":true
+    };
+    await request(server)
+      .post('/api/pokemon/create')
+      .send(monPokemon)
+      .expect(({ body }) => body.name === monPokemon.name);
+  });
+     
+  test('CREATE pokemons', async () => {
+    await request(server).post('/api/pokemon/createALL')
+    await request(server).get('/api/pokemon/').expect(({ body }) => body.length === 890);
+  });
+
+  test('DELETE a pokemon', async () => {
+    const monPokemon = {
+      "id_pokemon":1,
+      "name":{
+          "fr":"Bulbizarre",
+          "en":"Bulbasaur",
+          "de":"Bisasam",
+          "ja":"フシギダネ",
+          "ko":"이상해씨",
+          "ru":"Бульбазавр",
+          "zh-hans":"妙蛙种子",
+          "zh-hant":"妙蛙種子"
+      },
+      "generation":1,
+      "enable":true
+    };
+    await request(server)
+      .post('/api/pokemon/create')
+      .send(monPokemon)
+      .expect(({ body }) => body.name === monPokemon.name);
+
+    await request(server).delete('/api/pokemon/delete/1')
+
+    await request(server).get('/api/pokemon/').expect(({ body }) => body.length === 0);
   });
 });

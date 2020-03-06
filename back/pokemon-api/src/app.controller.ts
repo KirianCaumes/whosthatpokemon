@@ -18,7 +18,6 @@ export class AppController {
   
   @Post('create')
   async createPokemon(@Body() pokemon : Promise<Pokemon>) {
-    console.log(pokemon)
     return this.appService.createPokemon(await pokemon);
   }
 
