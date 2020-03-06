@@ -4,6 +4,8 @@ import { MainPageComponent } from './main-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 describe('MainPageComponent', () => {
     let component: MainPageComponent;
@@ -12,10 +14,11 @@ describe('MainPageComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 FontAwesomeModule,
-                FormsModule
+                FormsModule,
             ],
             declarations: [
-                MainPageComponent
+                MainPageComponent,
+                SettingsModalComponent
             ],
         }).compileComponents();
     }));
@@ -35,8 +38,14 @@ describe('MainPageComponent', () => {
         const pkmnId = 25
         const lang = 'fr'
 
+        const settingsService: SettingsService = new SettingsService()
+
         component.pokemon.id_pokemon = pkmnId
         component.pokemon.translate[lang] = pkmnName
+
+        settingsService.editLang(lang)
+        
+        fixture.detectChanges()
 
         const buttonCheck = fixture.debugElement.query(By.css('[data-test-id="check-button"]'))
         const inputPkmnName = fixture.debugElement.query(By.css('[data-test-id="input-pkmn-name"]'))
@@ -44,11 +53,17 @@ describe('MainPageComponent', () => {
 
         inputPkmnName.nativeElement.value = pkmnName
 
+        fixture.detectChanges()
+
+        inputPkmnName.nativeElement.dispatchEvent(new Event('change'))
+
+        fixture.detectChanges()
+
         buttonCheck.nativeElement.click()
 
         fixture.detectChanges()
 
-        expect(message).toEqual(component.message.found)
+        expect(message.nativeNode.innerHTML.trim()).toEqual(component.message.found)
     })
 
     //TODO

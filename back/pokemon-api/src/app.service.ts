@@ -6,18 +6,22 @@ const fs = require("fs");
 
 @Injectable()
 export class AppService {
-  
-  constructor(@InjectModel('Pokemon') private readonly pokemon : Model<Pokemon>, @InjectConnection() private readonly connection: Connection) {}
 
-  async findAll() : Promise<Pokemon[]> {
+  constructor(@InjectModel('Pokemon') private readonly pokemon: Model<Pokemon>, @InjectConnection() private readonly connection: Connection) { }
+
+  async findAll(): Promise<Pokemon[]> {
     return this.pokemon.find().exec();
   }
 
-  async findOnePokemon(@Param() id) : Promise<Pokemon> {
-    return this.pokemon.findOne({id_pokemon:id});
+  async findOnePokemon(id): Promise<Pokemon> {
+    return this.pokemon.findOne({ id_pokemon: id });
   }
 
-  async createPokemon(@Body() pokemon : Pokemon) : Promise<Pokemon> {
+  async findAllPokemonByGens(gens): Promise<[Pokemon]> {
+    return this.pokemon.find({ generation: { '$in': gens } });
+  }
+
+  async createPokemon(pokemon: Pokemon): Promise<Pokemon> {
     return this.pokemon(pokemon).save();
   }
 
@@ -26,11 +30,11 @@ export class AppService {
     return this.pokemon.insertMany(arrayPokemon);
   }
 
-  async updatePokemon(@Param() id, @Body() pokemon : Pokemon) : Promise<Pokemon> {
-    return this.pokemon.findOneAndUpdate( {id_pokemon:id}, {$set: pokemon},  {upsert: false, new: true, useFindAndModify: false})
+  async updatePokemon(id, pokemon: Pokemon): Promise<Pokemon> {
+    return this.pokemon.findOneAndUpdate({ id_pokemon: id }, { $set: pokemon }, { upsert: false, new: true, useFindAndModify: false })
   }
 
-  async deleteAllPokemon() : Promise<Pokemon> {
+  async deleteAllPokemon(): Promise<Pokemon> {
     return this.pokemon.deleteMany();
   }
 }
