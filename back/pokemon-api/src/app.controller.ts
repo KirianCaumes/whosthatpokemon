@@ -14,13 +14,13 @@ export class AppController {
   @Get('random')
   async findOneRandomPokemon(@Query('one') one: string, @Query('two') two: string, @Query('three') three: string, @Query('four') four: string, @Query('five') five: string, @Query('six') six: string, @Query('seven') seven: string) {
     let gen = []
-    if (JSON.parse(one)) gen.push(1)
-    if (JSON.parse(two)) gen.push(2)
-    if (JSON.parse(three)) gen.push(3)
-    if (JSON.parse(four)) gen.push(4)
-    if (JSON.parse(five)) gen.push(5)
-    if (JSON.parse(six)) gen.push(6)
-    if (JSON.parse(seven)) gen.push(7)
+    if (one && JSON.parse(one)) gen.push(1)
+    if (two && JSON.parse(two)) gen.push(2)
+    if (three && JSON.parse(three)) gen.push(3)
+    if (four && JSON.parse(four)) gen.push(4)
+    if (five && JSON.parse(five)) gen.push(5)
+    if (six && JSON.parse(six)) gen.push(6)
+    if (seven && JSON.parse(seven)) gen.push(7)
     const pkmn = await this.appService.findAllPokemonByGens(gen);
 
     return pkmn[Math.round(Math.random() * (pkmn.length - 1) + 1)];

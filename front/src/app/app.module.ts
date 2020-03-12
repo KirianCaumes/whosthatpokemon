@@ -8,13 +8,15 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule } from '@angular/forms';
 import { SettingsModalComponent } from './component/settings-modal/settings-modal.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PokeLoaderComponent } from './component/poke-loader/poke-loader.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
         MainPageComponent,
-        SettingsModalComponent
+        SettingsModalComponent,
+        PokeLoaderComponent
     ],
     imports: [
         BrowserModule,

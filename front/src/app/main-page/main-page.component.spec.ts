@@ -2,10 +2,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MainPageComponent } from './main-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SettingsService } from '../service/settings/settings.service';
+import { SettingsModalComponent } from '../component/settings-modal/settings-modal.component';
+import { PokeLoaderComponent } from '../component/poke-loader/poke-loader.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('MainPageComponent', () => {
     let component: MainPageComponent;
@@ -15,11 +17,16 @@ describe('MainPageComponent', () => {
             imports: [
                 FontAwesomeModule,
                 FormsModule,
+                HttpClientModule
             ],
             declarations: [
                 MainPageComponent,
-                SettingsModalComponent
+                SettingsModalComponent,
+                PokeLoaderComponent
             ],
+            providers: [
+                SettingsService
+            ]
         }).compileComponents();
     }));
 
@@ -41,7 +48,7 @@ describe('MainPageComponent', () => {
         const settingsService: SettingsService = new SettingsService()
 
         component.pokemon.id_pokemon = pkmnId
-        component.pokemon.translate[lang] = pkmnName
+        component.pokemon.name[lang] = pkmnName
 
         settingsService.editLang(lang)
         
@@ -65,11 +72,39 @@ describe('MainPageComponent', () => {
 
         expect(message.nativeNode.innerHTML.trim()).toEqual(component.message.found)
     })
+    
+    it('should get pokemon from api', async () => {
+        await new Promise(resolve => setTimeout(resolve, 1500))
 
-    //TODO
-    //Put data in input "nom du pokémon"
+        fixture.detectChanges()
 
-    //Select random gen and check values
+        const image = fixture.debugElement.query(By.css('[data-test-id="image-pkmn"]'))
 
-    //Select random lang and check value
+        fixture.detectChanges()
+
+        expect(image.nativeElement.src).not.toBe(null)
+    })
+
+    //Test show answer
+    
+    it('should get pokemon from api and answer displayed', async () => {
+        await new Promise(resolve => setTimeout(resolve, 1500))
+
+        fixture.detectChanges()
+
+        const buttonShow = fixture.debugElement.query(By.css('[data-test-id="answer-button"]'))
+        const textName = fixture.debugElement.query(By.css('[data-test-id="answer-text"]'))
+
+        fixture.detectChanges()
+
+        buttonShow.nativeElement.click()
+
+        fixture.detectChanges()
+        const settingsService: SettingsService = TestBed.get(SettingsService);
+
+        console.log(textName.nativeElement.innerHTML)
+
+        expect(textName.nativeElement.innerHTML).toBe(component.pokemon.name[settingsService.getSettings().lang])
+    })
+
 });
