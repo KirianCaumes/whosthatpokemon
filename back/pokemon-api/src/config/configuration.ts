@@ -1,0 +1,1 @@
+export const database =  process.env.POKEMON_DATABASE || "whosthatpokemon";

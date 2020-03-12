@@ -131,4 +131,9 @@ describe('AppController CRUD', () => {
 
     await request(server).get('/api/pokemon/').expect(({ body }) => body.length === 0);
   });
+
+  afterAll(async () => {
+    await request(server).delete('/api/pokemon/deleteALL').set('Accept', 'application/json')
+    await request(server).post('/api/pokemon/createALL')
+  });
 });
