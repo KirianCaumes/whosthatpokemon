@@ -8,7 +8,7 @@ import { SettingsService } from '../settings/settings.service';
 })
 export class ApiServiceService {
 
-  baseUrl = 'http://localhost:3000/api/'
+  baseUrl = origin + "/api/"
 
   constructor(private http: HttpClient, private settingsService: SettingsService) { }
 

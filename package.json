@@ -1,0 +1,21 @@
+{
+    "name": "whosthatpokemon",
+    "version": "1.0.0",
+    "description": "",
+    "main": "api/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "cd back/pokemon-api && npm run start:prod",
+        "heroku-postbuild": "cd back/pokemon-api && npm install -g nest &&  npm install && npm run build && cd ../../front && npm install && npm run build && mkdir -p ../back/pokemon-api/client && cp -a dist/front/. ../back/pokemon-api/client/"
+    },
+    "author": "KirianCaumes",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/KirianCaumes/whosthatpokemon.git"
+    },
+    "bugs": {
+        "url": "hhttps://github.com/KirianCaumes/whosthatpokemon/issues"
+    },
+    "homepage": "https://github.com/KirianCaumes/whosthatpokemon#readme"
+}

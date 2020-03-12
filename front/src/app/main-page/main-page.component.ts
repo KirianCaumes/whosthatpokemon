@@ -94,7 +94,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
         this.pkmnNameInputValue = ""
         this.isLoading = true
         this.apiSub = this.apiServiceService.getOneRandomPkm().subscribe(pokemon => {
-            this.pokemon = pokemon
+            if (pokemon) this.pokemon = pokemon
             this.isLoading = false
             setTimeout(() => this.pkmnNameInput.nativeElement.focus(), 1)
         });
