@@ -57,7 +57,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
     //Check if value is okay
     check() {
-        let score = this.similarityService.getScore(this.pokemon.translate[this.settingsService.getSettings().lang], this.inputPokemon)
+        let score = this.similarityService.getScore(this.pokemon.name[this.settingsService.getSettings().lang], this.inputPokemon)
 
         if (score < 3) {
             this.messageDisplayed = this.message.found

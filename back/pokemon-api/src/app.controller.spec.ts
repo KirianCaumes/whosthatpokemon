@@ -22,48 +22,54 @@ describe('AppController CRUD', () => {
     await request(server).post('/api/pokemon/createALL')
     await request(server).get('/api/pokemon/').expect(({ body }) => body.length === 890);
   });
-  
+
 
   test('GET a pokemon', async () => {
     await request(server).post('/api/pokemon/createALL')
     await request(server).get('/api/pokemon/1').expect(({ body }) => body.id_pokemon === 1);
   });
 
+  //TODO get Pokemon by gens
+  test('GET a pokemon', async () => {
+    await request(server).get('/api/pokemon/random?one=true')
+      .expect(({ body }) => body.generation === 1);
+  });
+
   test('UPDATE a pokemon', async () => {
     let monPokemon = {
-      "id_pokemon":1,
-      "name":{
-         "fr":"Bulbizarre",
-         "en":"Bulbasaur",
-         "de":"Bisasam",
-         "ja":"フシギダネ",
-         "ko":"이상해씨",
-         "ru":"Бульбазавр",
-         "zh-hans":"妙蛙种子",
-         "zh-hant":"妙蛙種子"
+      "id_pokemon": 1,
+      "name": {
+        "fr": "Bulbizarre",
+        "en": "Bulbasaur",
+        "de": "Bisasam",
+        "ja": "フシギダネ",
+        "ko": "이상해씨",
+        "ru": "Бульбазавр",
+        "zh-hans": "妙蛙种子",
+        "zh-hant": "妙蛙種子"
       },
-      "generation":1,
-      "enable":true
-   };
+      "generation": 1,
+      "enable": true
+    };
 
-   await request(server)
+    await request(server)
       .post('/api/pokemon/create')
       .send(monPokemon)
 
     monPokemon = {
-      "id_pokemon":1,
-      "name":{
-          "fr":"BOOOM",
-          "en":"BOOOM",
-          "de":"BOOMM",
-          "ja":"BOOOM",
-          "ko":"BOOOM",
-          "ru":"BOOOM",
-          "zh-hans":"BOOOM",
-          "zh-hant":"BOOOM"
+      "id_pokemon": 1,
+      "name": {
+        "fr": "BOOOM",
+        "en": "BOOOM",
+        "de": "BOOMM",
+        "ja": "BOOOM",
+        "ko": "BOOOM",
+        "ru": "BOOOM",
+        "zh-hans": "BOOOM",
+        "zh-hant": "BOOOM"
       },
-      "generation":1,
-      "enable":true
+      "generation": 1,
+      "enable": true
     };
     await request(server)
       .put('/api/pokemon/update/1')
@@ -75,26 +81,26 @@ describe('AppController CRUD', () => {
 
   test('CREATE a pokemon', async () => {
     const monPokemon = {
-      "id_pokemon":1,
-      "name":{
-          "fr":"Bulbizarre",
-          "en":"Bulbasaur",
-          "de":"Bisasam",
-          "ja":"フシギダネ",
-          "ko":"이상해씨",
-          "ru":"Бульбазавр",
-          "zh-hans":"妙蛙种子",
-          "zh-hant":"妙蛙種子"
+      "id_pokemon": 1,
+      "name": {
+        "fr": "Bulbizarre",
+        "en": "Bulbasaur",
+        "de": "Bisasam",
+        "ja": "フシギダネ",
+        "ko": "이상해씨",
+        "ru": "Бульбазавр",
+        "zh-hans": "妙蛙种子",
+        "zh-hant": "妙蛙種子"
       },
-      "generation":1,
-      "enable":true
+      "generation": 1,
+      "enable": true
     };
     await request(server)
       .post('/api/pokemon/create')
       .send(monPokemon)
       .expect(({ body }) => body.name === monPokemon.name);
   });
-     
+
   test('CREATE pokemons', async () => {
     await request(server).post('/api/pokemon/createALL')
     await request(server).get('/api/pokemon/').expect(({ body }) => body.length === 890);
@@ -102,19 +108,19 @@ describe('AppController CRUD', () => {
 
   test('DELETE a pokemon', async () => {
     const monPokemon = {
-      "id_pokemon":1,
-      "name":{
-          "fr":"Bulbizarre",
-          "en":"Bulbasaur",
-          "de":"Bisasam",
-          "ja":"フシギダネ",
-          "ko":"이상해씨",
-          "ru":"Бульбазавр",
-          "zh-hans":"妙蛙种子",
-          "zh-hant":"妙蛙種子"
+      "id_pokemon": 1,
+      "name": {
+        "fr": "Bulbizarre",
+        "en": "Bulbasaur",
+        "de": "Bisasam",
+        "ja": "フシギダネ",
+        "ko": "이상해씨",
+        "ru": "Бульбазавр",
+        "zh-hans": "妙蛙种子",
+        "zh-hant": "妙蛙種子"
       },
-      "generation":1,
-      "enable":true
+      "generation": 1,
+      "enable": true
     };
     await request(server)
       .post('/api/pokemon/create')

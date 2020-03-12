@@ -2,13 +2,15 @@
     <div class="card">
         <div class="card-image">
             <div>
-                <img *ngIf="pokemon.id_pokemon" onmousedown="return false" src="assets/pkmn/{{pokemon.id_pokemon}}.png">
-                <i class="fa fa-circle-o-notch fa-spin" style="visibility: hidden;"></i>
+                <img 
+                    [ngStyle]="{'filter': (isAnswerDisplayed ? 'brightness(1)' : 'brightness(0)'), 'transition': (isAnswerDisplayed ? '0.5s' : '0s')}"
+                *ngIf="pokemon.id_pokemon" onmousedown="return false" src="assets/pkmn/{{pokemon.id_pokemon}}.png" data-test-id="image-pkmn">
+                <app-poke-loader *ngIf="!pokemon.id_pokemon" style="margin: 0 250px;"></app-poke-loader>
             </div>
         </div>
         <div class="card-content">
             <h1 class="title has-text-centered">
-                <span [hidden]="!isAnswerDisplayed"><span>{{pokemon.name[settingsService.getSettings().lang]}}</span> -
+                <span [hidden]="!isAnswerDisplayed"><span data-test-id="answer-text">{{pokemon.name[settingsService.getSettings().lang]}}</span> -
                     N°<span>{{pokemon.id_pokemon}}</span></span>
                 <span [hidden]="isAnswerDisplayed">&nbsp;</span>
             </h1>
@@ -18,13 +20,13 @@
                     <div class="control">
                         <form (ngSubmit)="check()">
                             <input class="input" type="text" placeholder="Nom du Pokémon" [value]="inputPokemon"
-                                (change)="changeInputPokemon($event)" data-test-id="input-pkmn-name">
+                                (change)="changeInputPokemon($event)" data-test-id="input-pkmn-name" [disabled]="!pokemon.id_pokemon">
                             <p class="help" data-test-id="message-pkmn-name">
                                 {{messageDisplayed.length > 0 ? messageDisplayed : '&nbsp;' }}</p>
                         </form>
                     </div>
                     <div class="control">
-                        <button class="button  is-success is-outlined" (click)="check()" data-test-id="check-button">
+                        <button class="button  is-success is-outlined" (click)="check()" data-test-id="check-button" [disabled]="!pokemon.id_pokemon">
                             <span class="icon">
                                 <fa-icon [icon]="faCheck"></fa-icon>
                             </span>
@@ -32,13 +34,13 @@
                         </button>
                     </div>
                 </div>
-                <button class="button is-primary" (click)="refresh()">
+                <button class="button is-primary" (click)="refresh()" [disabled]="!pokemon.id_pokemon">
                     <span class="icon">
                         <fa-icon [icon]="faSync"></fa-icon>
                     </span>
                     <span>Refresh</span>
                 </button>
-                <button class="button is-info" (click)="response()">
+                <button class="button is-info" (click)="response()" [disabled]="!pokemon.id_pokemon" data-test-id="answer-button">
                     <span class="icon">
                         <fa-icon [icon]="faEye"></fa-icon>
                     </span>
