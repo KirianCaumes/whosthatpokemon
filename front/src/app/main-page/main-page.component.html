@@ -4,29 +4,40 @@
             <div>
                 <img 
                     [ngStyle]="{'filter': (isAnswerDisplayed ? 'brightness(1)' : 'brightness(0)'), 'transition': (isAnswerDisplayed ? '0.5s' : '0s')}"
-                *ngIf="pokemon.id_pokemon" onmousedown="return false" src="assets/pkmn/{{pokemon.id_pokemon}}.png" data-test-id="image-pkmn">
-                <app-poke-loader *ngIf="!pokemon.id_pokemon" style="margin: 0 250px;"></app-poke-loader>
+                *ngIf="!isLoading && pokemon.id_pokemon" onmousedown="return false" src="assets/pkmn/{{pokemon.id_pokemon}}.png" data-test-id="image-pkmn">
+                <app-poke-loader *ngIf="isLoading" style="margin: 0 250px;"></app-poke-loader>
             </div>
         </div>
         <div class="card-content">
             <h1 class="title has-text-centered">
-                <span [hidden]="!isAnswerDisplayed"><span data-test-id="answer-text">{{pokemon.name[settingsService.getSettings().lang]}}</span> -
-                    N°<span>{{pokemon.id_pokemon}}</span></span>
+                <span [hidden]="!isAnswerDisplayed">
+                    <span data-test-id="answer-text">{{pokemon.name[settingsService.getSettings().lang]}}</span> -
+                    N°<span>{{pokemon.id_pokemon}}</span>
+                </span>
                 <span [hidden]="isAnswerDisplayed">&nbsp;</span>
             </h1>
             <br />
+            <progress 
+                class="progress" 
+                value="{{timeLeft}}" 
+                max="60"
+                *ngIf="isGameOn"
+                [ngClass]="{'is-primary': timeLeft >= 20, 'is-warning': timeLeft < 20, 'is-danger': timeLeft < 10 }"
+            >
+                {{timeLeft}} sec
+            </progress>
             <div class="button-row">
                 <div class="field has-addons">
                     <div class="control">
                         <form (ngSubmit)="check()">
-                            <input class="input" type="text" placeholder="Nom du Pokémon" [value]="inputPokemon"
-                                (change)="changeInputPokemon($event)" data-test-id="input-pkmn-name" [disabled]="!pokemon.id_pokemon">
+                            <input class="input" type="text" placeholder="Nom du Pokémon" [value]="pkmnNameInputValue"
+                                (change)="changePkmnNameInputValue($event)" data-test-id="input-pkmn-name" [disabled]="isLoading" #pkmnNameInput>
                             <p class="help" data-test-id="message-pkmn-name">
                                 {{messageDisplayed.length > 0 ? messageDisplayed : '&nbsp;' }}</p>
                         </form>
                     </div>
                     <div class="control">
-                        <button class="button  is-success is-outlined" (click)="check()" data-test-id="check-button" [disabled]="!pokemon.id_pokemon">
+                        <button class="button  is-success is-outlined" (click)="check()" data-test-id="check-button" [disabled]="isLoading">
                             <span class="icon">
                                 <fa-icon [icon]="faCheck"></fa-icon>
                             </span>
@@ -34,23 +45,35 @@
                         </button>
                     </div>
                 </div>
-                <button class="button is-primary" (click)="refresh()" [disabled]="!pokemon.id_pokemon">
+                <button class="button is-primary" (click)="refresh()" [disabled]="isLoading">
                     <span class="icon">
                         <fa-icon [icon]="faSync"></fa-icon>
                     </span>
                     <span>Refresh</span>
                 </button>
-                <button class="button is-info" (click)="response()" [disabled]="!pokemon.id_pokemon" data-test-id="answer-button">
+                <button class="button is-info" (click)="response()" [disabled]="isLoading|| isGameOn" data-test-id="answer-button">
                     <span class="icon">
                         <fa-icon [icon]="faEye"></fa-icon>
                     </span>
                     <span>Answer</span>
                 </button>
-                <button class="button is-link" (click)="openModal()">
+                <button class="button is-link" (click)="openModal()" [disabled]="isGameOn" >
                     <span class="icon">
                         <fa-icon [icon]="faCog"></fa-icon>
                     </span>
                     <span>Settings</span>
+                </button>
+                <button class="button is-success" (click)="play()" *ngIf="!isGameOn">
+                    <span class="icon">
+                        <fa-icon [icon]="faPlay"></fa-icon>
+                    </span>
+                    <span>Play</span>
+                </button>
+                <button class="button is-danger" (click)="stop()" *ngIf="isGameOn">
+                    <span class="icon">
+                        <fa-icon [icon]="faStop"></fa-icon>
+                    </span>
+                    <span>Stop</span>
                 </button>
             </div>
         </div>
@@ -58,3 +81,4 @@
 </section>
 
 <app-settings-modal *ngIf="isModalOpen" (onDismiss)="openModal()"></app-settings-modal>
+<app-gameover-modal *ngIf="isModalGameOverOpen" (onDismiss)="openModalGameOver()" [score]="score"></app-gameover-modal>

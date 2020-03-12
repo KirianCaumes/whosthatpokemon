@@ -1,0 +1,38 @@
+<div class="modal is-active" style="z-index: 999;">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Time's up</p>
+            <button class="delete" aria-label="close" (click)="dismiss()"></button>
+        </header>
+        <section class="modal-card-body">
+            <h2 class="subtitle has-text-centered">
+                Congrutalations ! You have just found
+                <b>{{score ? score : 0}}</b>
+                Pokémon(s) in 60 seconds !</h2>
+            <br />
+            <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" placeholder="Votre pseudo" (change)="changeUserName($event)">
+                    <span class="icon is-small is-left">
+                        <fa-icon [icon]="faUser" ></fa-icon>
+                    </span>
+                </p>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-success" (click)="save()">
+                <span class="icon">
+                    <fa-icon [icon]="faSave"></fa-icon>
+                </span>
+                <span>Save</span>
+            </button>
+            <button class="button" (click)="dismiss()">
+                <span class="icon">
+                    <fa-icon [icon]="faTimes"></fa-icon>
+                </span>
+                <span>Cancel</span>
+            </button>
+        </footer>
+    </div>
+</div>
