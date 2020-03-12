@@ -2,9 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from './app.module';
 import * as request from 'supertest';
 
-
-
-
 describe('AppController CRUD', () => {
   let app;
   let server;
@@ -29,7 +26,6 @@ describe('AppController CRUD', () => {
     await request(server).get('/api/pokemon/1').expect(({ body }) => body.id_pokemon === 1);
   });
 
-  //TODO get Pokemon by gens
   test('GET a pokemon', async () => {
     await request(server).get('/api/pokemon/random?one=true')
       .expect(({ body }) => body.generation === 1);

@@ -37,4 +37,5 @@ export class AppService {
   async deleteAllPokemon(): Promise<Pokemon> {
     return this.pokemon.deleteMany();
   }
+
 }
