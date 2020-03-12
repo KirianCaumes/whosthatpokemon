@@ -23,7 +23,7 @@ export class AppController {
     if (seven && JSON.parse(seven)) gen.push(7)
     const pkmn = await this.appService.findAllPokemonByGens(gen);
 
-    return pkmn[Math.round(Math.random() * (pkmn.length - 1) + 1)];
+    return pkmn[Math.round(Math.random() * (pkmn.length - 1))];
   }
 
   @Get(':id')

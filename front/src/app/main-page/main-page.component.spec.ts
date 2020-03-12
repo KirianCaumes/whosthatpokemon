@@ -8,6 +8,7 @@ import { SettingsService } from '../service/settings/settings.service';
 import { SettingsModalComponent } from '../component/settings-modal/settings-modal.component';
 import { PokeLoaderComponent } from '../component/poke-loader/poke-loader.component';
 import { HttpClientModule } from '@angular/common/http';
+import { GameoverModalComponent } from '../component/gameover-modal/gameover-modal.component';
 
 describe('MainPageComponent', () => {
     let component: MainPageComponent;
@@ -22,7 +23,8 @@ describe('MainPageComponent', () => {
             declarations: [
                 MainPageComponent,
                 SettingsModalComponent,
-                PokeLoaderComponent
+                PokeLoaderComponent,
+                GameoverModalComponent
             ],
             providers: [
                 SettingsService
@@ -49,6 +51,7 @@ describe('MainPageComponent', () => {
 
         component.pokemon.id_pokemon = pkmnId
         component.pokemon.name[lang] = pkmnName
+        component.isLoading = false
 
         settingsService.editLang(lang)
         

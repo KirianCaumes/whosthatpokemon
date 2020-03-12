@@ -30,7 +30,8 @@ app-main-page {
         height: 100%;
         margin-right: 15%;
         img {
-          filter: brightness(0);
+          //   filter: brightness(0);
+        //   transition: 0.5s;
           margin-left: 16%;
           z-index: 100;
           display: none;
@@ -62,7 +63,7 @@ app-main-page {
         }
       }
       h2 {
-        margin-bottom: .5rem;
+        margin-bottom: 0.5rem;
       }
     }
   }

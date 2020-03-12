@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { SettingsModalComponent } from './component/settings-modal/settings-modal.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PokeLoaderComponent } from './component/poke-loader/poke-loader.component';
+import { GameoverModalComponent } from './component/gameover-modal/gameover-modal.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { PokeLoaderComponent } from './component/poke-loader/poke-loader.compone
         AppComponent,
         MainPageComponent,
         SettingsModalComponent,
-        PokeLoaderComponent
+        PokeLoaderComponent,
+        GameoverModalComponent
     ],
     imports: [
         BrowserModule,
