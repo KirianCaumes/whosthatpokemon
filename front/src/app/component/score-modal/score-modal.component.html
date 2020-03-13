@@ -1,0 +1,48 @@
+<div class="modal is-active" style="z-index: 999;">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Scores</p>
+      <button class="delete" aria-label="close" (click)="dismiss()"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="table-container table_score is-centered">
+        <table class="table is-fullwidth" style="margin: auto;">
+          <thead>
+            <tr>
+              <th>Classement</th>
+              <th>Nom</th>
+              <th>Date</th>
+              <th>Score</th>
+              <th>Génération</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let users of users; let index = index;">
+              <th>{{index+1}}</th>
+              <th>{{users.name}}</th>
+              <th>{{users.date}}</th>
+              <th>{{users.score}}</th>
+              <th>
+                <span *ngIf="(users.gens.one == true)">{{1}}</span>
+                <span *ngIf="(users.gens.two == true)">{{ " / "  + 2}}</span>
+                <span *ngIf="(users.gens.three == true)">{{ " / " + 3}}</span>
+                <span *ngIf="(users.gens.four == true)">{{ " / " + 4}}</span>
+                <span *ngIf="(users.gens.five == true)">{{ " / " + 5}}</span>
+                <span *ngIf="(users.gens.six == true)">{{ " / " + 6}}</span>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button" (click)="dismiss()">
+                <span class="icon">
+                    <fa-icon [icon]="faTimes"></fa-icon>
+                </span>
+        <span>Cancel</span>
+      </button>
+    </footer>
+  </div>
+</div>

@@ -9,6 +9,7 @@ import { SettingsModalComponent } from '../component/settings-modal/settings-mod
 import { PokeLoaderComponent } from '../component/poke-loader/poke-loader.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GameoverModalComponent } from '../component/gameover-modal/gameover-modal.component';
+import {ScoreModalComponent} from "../component/score-modal/score-modal.component";
 
 describe('MainPageComponent', () => {
     let component: MainPageComponent;
@@ -24,7 +25,8 @@ describe('MainPageComponent', () => {
                 MainPageComponent,
                 SettingsModalComponent,
                 PokeLoaderComponent,
-                GameoverModalComponent
+                GameoverModalComponent,
+                ScoreModalComponent
             ],
             providers: [
                 SettingsService
@@ -54,7 +56,7 @@ describe('MainPageComponent', () => {
         component.isLoading = false
 
         settingsService.editLang(lang)
-        
+
         fixture.detectChanges()
 
         const buttonCheck = fixture.debugElement.query(By.css('[data-test-id="check-button"]'))
@@ -75,7 +77,7 @@ describe('MainPageComponent', () => {
 
         expect(message.nativeNode.innerHTML.trim()).toEqual(component.message.found)
     })
-    
+
     it('should get pokemon from api', async () => {
         await new Promise(resolve => setTimeout(resolve, 1500))
 
@@ -89,7 +91,7 @@ describe('MainPageComponent', () => {
     })
 
     //Test show answer
-    
+
     it('should get pokemon from api and answer displayed', async () => {
         await new Promise(resolve => setTimeout(resolve, 1500))
 

@@ -7,7 +7,151 @@ import { SettingsService } from '../settings/settings.service';
 
 //TODO setup pretender
 
-const pokemons = [{
+const users = [
+  {
+    "score":151,
+    "date":"10/03/2020",
+    "name":"test_1",
+    "gens":{
+      "one":false,
+      "two":true,
+      "three":true,
+      "four":true,
+      "five":true,
+      "six":false,
+      "seven":false
+    }
+  },
+  {
+    "score":12,
+    "date":"10/03/2020",
+    "name":"test_1",
+    "gens":{
+      "one":false,
+      "two":true,
+      "three":true,
+      "four":true,
+      "five":true,
+      "six":false,
+      "seven":false
+    }
+  },
+  {
+    "score":1623,
+    "date":"10/03/2020",
+    "name":"test_1",
+    "gens":{
+      "one":false,
+      "two":true,
+      "three":true,
+      "four":true,
+      "five":true,
+      "six":false,
+      "seven":false
+    }
+  },
+  {
+    "score":55,
+    "date":"10/03/2020",
+    "name":"test_1",
+    "gens":{
+      "one":false,
+      "two":true,
+      "three":true,
+      "four":true,
+      "five":true,
+      "six":false,
+      "seven":false
+    }
+  },
+  {
+    "score":86,
+    "date":"10/03/2020",
+    "name":"test_1",
+    "gens":{
+      "one":false,
+      "two":true,
+      "three":true,
+      "four":true,
+      "five":true,
+      "six":false,
+      "seven":false
+    }
+  },
+  {
+    "score":22,
+    "date":"10/03/2020",
+    "name":"test_1",
+    "gens":{
+      "one":false,
+      "two":true,
+      "three":true,
+      "four":true,
+      "five":true,
+      "six":false,
+      "seven":false
+    }
+  },
+  {
+    "score":45,
+    "date":"10/03/2020",
+    "name":"test_1",
+    "gens":{
+      "one":false,
+      "two":true,
+      "three":true,
+      "four":true,
+      "five":true,
+      "six":false,
+      "seven":false
+    }
+  },
+  {
+    "score":845,
+    "date":"10/03/2020",
+    "name":"test_1",
+    "gens":{
+      "one":false,
+      "two":true,
+      "three":true,
+      "four":true,
+      "five":true,
+      "six":false,
+      "seven":false
+    }
+  },
+  {
+    "score":56,
+    "date":"10/03/2020",
+    "name":"test_1",
+    "gens":{
+      "one":false,
+      "two":true,
+      "three":true,
+      "four":true,
+      "five":true,
+      "six":false,
+      "seven":false
+    }
+  },
+  {
+    "score":845,
+    "date":"10/03/2020",
+    "name":"test_1",
+    "gens":{
+      "one":false,
+      "two":true,
+      "three":true,
+      "four":true,
+      "five":true,
+      "six":false,
+      "seven":false
+    }
+  }
+]
+
+const pokemons = [
+  {
   "id_pokemon": 1,
   "name": {
     "de": "Bisasam",
@@ -109,6 +253,15 @@ const server = new Pretender(function () {
     var pkmn = pokemons.find(x => gen.includes(x.generation))
     return [200, { ContentType: 'application/json' }, JSON.stringify(pkmn)];
   });
+
+  this.get(origin + '/api/user/list', request => {
+    return [200, { ContentType: 'application/json' }, JSON.stringify(users[0])];
+  });
+
+  this.post('/api/user/insert', request => {
+    return [200, { ContentType: 'application/json' }, JSON.stringify(users[0])];
+  });
+
 });
 
 describe('ApiServiceService', () => {
@@ -149,4 +302,22 @@ describe('ApiServiceService', () => {
 
     expect(pkmn.generation).toBe(3);
   });
+
+
+  it('Get one score', async () => {
+    const service: ApiServiceService = TestBed.get(ApiServiceService);
+
+    const OneUsers = await service.getTenScore().toPromise();
+
+    expect(OneUsers.name).toBe("test_1");
+  });
+
+  it('Post score', async () => {
+    const service: ApiServiceService = TestBed.get(ApiServiceService);
+
+    const score = await service.postScore(users[0]).toPromise();
+
+    expect(score).not.toEqual(null);
+  });
+
 });

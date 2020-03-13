@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { faSave, faTimes, faUser } from '@fortawesome/free-solid-svg-icons';
+import {ApiServiceService} from "../../service/api-service/api-service.service";
+import {SettingsService} from "../../service/settings/settings.service";
 
 @Component({
   selector: 'app-gameover-modal',
@@ -18,7 +20,7 @@ export class GameoverModalComponent implements OnInit {
 
   username = ""
 
-  constructor() { }
+  constructor(private apiServiceService: ApiServiceService, private settingsService: SettingsService) { }
 
   //Dismiss modal
   dismiss() {
@@ -30,8 +32,13 @@ export class GameoverModalComponent implements OnInit {
   }
 
   save() {
-    //TODO connect api to save higshcore
-    this.onDismiss.emit()
+    this.apiServiceService.postScore({
+      score: this.score,
+      date:  (new Date()).toLocaleDateString(),
+      name: this.username,
+      gens: this.settingsService.getSettings().gens,
+    }).subscribe();
+    this.onDismiss.emit();
   }
 
   ngOnInit() {

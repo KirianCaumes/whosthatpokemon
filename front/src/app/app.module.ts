@@ -10,6 +10,7 @@ import { SettingsModalComponent } from './component/settings-modal/settings-moda
 import { HttpClientModule } from '@angular/common/http';
 import { PokeLoaderComponent } from './component/poke-loader/poke-loader.component';
 import { GameoverModalComponent } from './component/gameover-modal/gameover-modal.component';
+import { ScoreModalComponent } from './component/score-modal/score-modal.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { GameoverModalComponent } from './component/gameover-modal/gameover-moda
         MainPageComponent,
         SettingsModalComponent,
         PokeLoaderComponent,
-        GameoverModalComponent
+        GameoverModalComponent,
+        ScoreModalComponent
     ],
     imports: [
         BrowserModule,

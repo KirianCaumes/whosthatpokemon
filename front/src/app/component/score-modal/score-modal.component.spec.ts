@@ -1,29 +1,29 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GameoverModalComponent } from './gameover-modal.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormsModule } from '@angular/forms';
+import { ScoreModalComponent } from './score-modal.component';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {FormsModule} from "@angular/forms";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 
-describe('GameoverModalComponent', () => {
-  let component: GameoverModalComponent;
-  let fixture: ComponentFixture<GameoverModalComponent>;
+describe('ScoreModalComponent', () => {
+  let component: ScoreModalComponent;
+  let fixture: ComponentFixture<ScoreModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      declarations: [ ScoreModalComponent ],
       imports: [
+
         FontAwesomeModule,
         HttpClientTestingModule,
         FormsModule
-      ],
-      declarations: [
-        GameoverModalComponent
-      ],
-    }).compileComponents();
+      ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GameoverModalComponent);
+    fixture = TestBed.createComponent(ScoreModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

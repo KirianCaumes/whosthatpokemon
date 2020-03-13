@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { faSync, faEye, faCheck, faAngleUp, faCog, faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
+import { faSync, faEye, faCheck, faAngleUp, faCog, faPlay, faStop, faStar } from '@fortawesome/free-solid-svg-icons';
 import { SimilarityService } from '../service/similarity/similarity.service'
 import { SettingsService } from '../service/settings/settings.service';
 import { ApiServiceService } from '../service/api-service/api-service.service';
+import { ScoreService } from '../service/score/score.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,6 +14,7 @@ import { Subscription } from 'rxjs';
 export class MainPageComponent implements OnInit, OnDestroy {
     @ViewChild('pkmnNameInput', { static: true }) pkmnNameInput: ElementRef;
 
+
     faSync = faSync;
     faEye = faEye;
     faCheck = faCheck;
@@ -20,6 +22,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     faCog = faCog;
     faPlay = faPlay;
     faStop = faStop;
+    faStar = faStar;
 
     message = {
         found: "Trouvé !",
@@ -34,7 +37,8 @@ export class MainPageComponent implements OnInit, OnDestroy {
     isLoading: Boolean = false
     pokemon = { "id_pokemon": 25, "name": { "fr": "Pikachu", "en": null, "de": null, "ja": null, "ko": null, "ru": null, "zh-hans": null, "zh-hant": null }, "generation": 1, "is_enable": true }//Pokemon infos
 
-    pkmnNameInputValue = ""//Input value
+    // Input value
+    pkmnNameInputValue = '';
 
     isAnswerDisplayed: Boolean = false
     isModalOpen: Boolean = false
@@ -48,6 +52,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     score: number = 0
     scoreComparaison: number = 0
     isModalGameOverOpen: Boolean = false
+    isModalOpenScore: Boolean = false
     timer
 
     constructor(private similarityService: SimilarityService, private settingsService: SettingsService, private apiServiceService: ApiServiceService) { }
@@ -112,6 +117,10 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
     openModalGameOver() {
         this.isModalGameOverOpen = !this.isModalGameOverOpen
+    }
+
+    openModalScore() {
+      this.isModalOpenScore = !this.isModalOpenScore;
     }
 
     play() {

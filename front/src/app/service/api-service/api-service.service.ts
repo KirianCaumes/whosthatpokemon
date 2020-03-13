@@ -17,7 +17,7 @@ export class ApiServiceService {
   }
 
   getOneRandomPkm(): Observable<any> {
-    //We need to parse json with boolean has strings
+    // We need to parse json with boolean has strings
     let params = {}
     const gens = { ...this.settingsService.getSettings().gens }
     for (const key in gens) params[key] = gens[key].toString()
@@ -28,4 +28,13 @@ export class ApiServiceService {
       })
     })
   }
+
+  getTenScore(): Observable<any> {
+    return this.http.get(this.baseUrl + 'user/list');
+  }
+
+  postScore(data) {
+      return this.http.post(this.baseUrl + 'user/insert', data);
+  }
+
 }
