@@ -105,9 +105,75 @@ describe('MainPageComponent', () => {
         fixture.detectChanges()
         const settingsService: SettingsService = TestBed.get(SettingsService);
 
-        console.log(textName.nativeElement.innerHTML)
-
         expect(textName.nativeElement.innerHTML).toBe(component.pokemon.name[settingsService.getSettings().lang])
     })
 
+    // TEST score
+    it('verify the message score', async () => {
+        await new Promise(resolve => setTimeout(resolve, 1500))
+       
+        const pkmnName = "Pikachu"
+        const pkmnId = 25
+        const lang = 'fr'
+
+        component.pokemon.id_pokemon = pkmnId
+        component.pokemon.name[lang] = pkmnName
+        component.isLoading = false
+        component.isGameOn = true;
+
+        fixture.detectChanges()
+
+        let message = {
+            found: "Trouvé !",
+            close: "Si proche !",
+            quiteClose: "Assez proche",
+            notClose: "Si loin...",
+            empty: "Vous devez entrer quelque chose !"
+        }
+
+        const buttonCheck = fixture.debugElement.query(By.css('[data-test-id="check-button"]'))
+
+        for (let index = 1; index < 10; index++) {
+
+            component.pkmnNameInputValue = component.pokemon.name[lang] + "A".repeat(index)
+
+            buttonCheck.nativeElement.click()
+
+            fixture.detectChanges()
+
+            if (component.scoreComparaison < 3) {
+                expect(component.messageDisplayed).toBe(message.found);
+            } else if (component.scoreComparaison < 5) {
+                expect(component.messageDisplayed).toBe(message.close);
+            } else if (component.scoreComparaison < 7) {
+                expect(component.messageDisplayed).toBe(message.quiteClose);
+            } else {
+                expect(component.messageDisplayed).toBe(message.notClose);
+            }
+        }
+    })
+
+    // TEST score
+    it('verify the timer', async () => {
+        await new Promise(resolve => setTimeout(resolve, 1500))
+        
+        const buttonPlay = fixture.debugElement.query(By.css('[data-test-id="play-timer-button"]'))
+        
+
+        buttonPlay.nativeElement.click()
+
+        fixture.detectChanges()
+
+        expect(component.isGameOn).toBe(true);
+
+        await new Promise(resolve => setTimeout(() => {
+
+            const buttonStop = fixture.debugElement.query(By.css('[data-test-id="close-timer-button"]'))
+            buttonStop.nativeElement.click()
+            
+            fixture.detectChanges()
+
+            resolve(expect(component.isGameOn).toBe(false))
+        }, 1500))
+    })
 });

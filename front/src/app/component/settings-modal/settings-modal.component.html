@@ -50,37 +50,37 @@
             <h2 class="subtitle has-text-centered">Language :</h2>
             <div class="control has-text-centered">
                 <label class="radio">
-                    <input type="radio" name="lang" [(ngModel)]="lang" value="en">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="en" (change)="changeLang($event)">
                     English
                 </label>
                 <label class="radio">
-                    <input type="radio" name="lang" [(ngModel)]="lang" value="fr">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="fr" (change)="changeLang($event)">
                     French
                 </label>
                 <label class="radio">
-                    <input type="radio" name="lang" [(ngModel)]="lang" value="de">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="de" (change)="changeLang($event)">
                     German
                 </label>
                 <label class="radio">
-                    <input type="radio" name="lang" [(ngModel)]="lang" value="ja">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="ja" (change)="changeLang($event)">
                     Japanese
                 </label>
                 <label class="radio">
-                    <input type="radio" name="lang" [(ngModel)]="lang" value="ko">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="ko" (change)="changeLang($event)">
                     Korean
                 </label>
                 <label class="radio">
-                    <input type="radio" name="lang" [(ngModel)]="lang" value="zh-hans">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="zh-hans" (change)="changeLang($event)">
                     Simplified Chinese
                 </label>
                 <label class="radio">
-                    <input type="radio" name="lang" [(ngModel)]="lang" value="zh-hant">
+                    <input type="radio" name="lang" [(ngModel)]="lang" value="zh-hant" (change)="changeLang($event)">
                     Traditional Chinese
                 </label>
             </div>
         </section>
         <footer class="modal-card-foot">
-            <button class="button is-success" (click)="save()">
+            <button class="button is-success" (click)="save()" data-test-id="setting-save-button">
                 <span class="icon">
                     <fa-icon [icon]="faSave"></fa-icon>
                 </span>

@@ -46,6 +46,7 @@ export class MainPageComponent implements OnInit, OnDestroy {
     isGameOn: Boolean = false
     timeLeft: number = 60
     score: number = 0
+    scoreComparaison: number = 0
     isModalGameOverOpen: Boolean = false
     timer
 
@@ -67,19 +68,18 @@ export class MainPageComponent implements OnInit, OnDestroy {
 
     //Check if value is okay
     check() {
-        let score = this.similarityService.getScore(this.pokemon.name[this.settingsService.getSettings().lang], this.pkmnNameInputValue)
+        this.scoreComparaison = this.similarityService.getScore(this.pokemon.name[this.settingsService.getSettings().lang], this.pkmnNameInputValue)
 
-        if (score < 3) {
+        if (this.scoreComparaison < 3) {
             this.messageDisplayed = this.message.found
             this.isAnswerDisplayed = true
             if (this.isGameOn) {
                 setTimeout(() => this.refresh(), 1000)
                 this.score++
-                console.log(this.score)
             }
-        } else if (score < 5) {
+        } else if (this.scoreComparaison < 5) {
             this.messageDisplayed = this.message.close
-        } else if (score < 7) {
+        } else if (this.scoreComparaison < 7) {
             this.messageDisplayed = this.message.quiteClose
         } else {
             this.messageDisplayed = this.message.notClose

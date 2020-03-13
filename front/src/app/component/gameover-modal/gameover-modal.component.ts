@@ -31,7 +31,6 @@ export class GameoverModalComponent implements OnInit {
 
   save() {
     //TODO connect api to save higshcore
-    console.log(this.username)
     this.onDismiss.emit()
   }
 

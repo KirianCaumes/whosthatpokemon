@@ -5,7 +5,7 @@
                 <img 
                     [ngStyle]="{'filter': (isAnswerDisplayed ? 'brightness(1)' : 'brightness(0)'), 'transition': (isAnswerDisplayed ? '0.5s' : '0s')}"
                 *ngIf="!isLoading && pokemon.id_pokemon" onmousedown="return false" src="assets/pkmn/{{pokemon.id_pokemon}}.png" data-test-id="image-pkmn">
-                <app-poke-loader *ngIf="isLoading" style="margin: 0 250px;"></app-poke-loader>
+                <app-poke-loader *ngIf="isLoading"></app-poke-loader>
             </div>
         </div>
         <div class="card-content">
@@ -63,13 +63,13 @@
                     </span>
                     <span>Settings</span>
                 </button>
-                <button class="button is-success" (click)="play()" *ngIf="!isGameOn">
+                <button class="button is-success" (click)="play()" *ngIf="!isGameOn" data-test-id="play-timer-button">
                     <span class="icon">
                         <fa-icon [icon]="faPlay"></fa-icon>
                     </span>
                     <span>Play</span>
                 </button>
-                <button class="button is-danger" (click)="stop()" *ngIf="isGameOn">
+                <button class="button is-danger" (click)="stop()" *ngIf="isGameOn" data-test-id="close-timer-button">
                     <span class="icon">
                         <fa-icon [icon]="faStop"></fa-icon>
                     </span>

@@ -93,11 +93,11 @@ const pokemons = [{
 }];
 
 const server = new Pretender(function () {
-  this.get('http://localhost:3000/api/pokemon/:id', request => {
+  this.get(origin + '/api/pokemon/:id', request => {
     let pkmn = pokemons.find(x => x.id_pokemon == request.params.id)
     return [200, { ContentType: 'application/json' }, JSON.stringify(pkmn)];
   });
-  this.get('http://localhost:3000/api/pokemon/random', request => {
+  this.get(origin + '/api/pokemon/random', request => {
     let gen = []
     if (JSON.parse(request.queryParams.one)) gen.push(1)
     if (JSON.parse(request.queryParams.two)) gen.push(2)
@@ -107,7 +107,6 @@ const server = new Pretender(function () {
     if (JSON.parse(request.queryParams.six)) gen.push(6)
     if (JSON.parse(request.queryParams.seven)) gen.push(7)
     var pkmn = pokemons.find(x => gen.includes(x.generation))
-    console.log(request.queryParams)
     return [200, { ContentType: 'application/json' }, JSON.stringify(pkmn)];
   });
 });
@@ -147,7 +146,7 @@ describe('ApiServiceService', () => {
     const service: ApiServiceService = TestBed.get(ApiServiceService);
 
     const pkmn = await service.getOneRandomPkm().toPromise();
-    
+
     expect(pkmn.generation).toBe(3);
   });
 });

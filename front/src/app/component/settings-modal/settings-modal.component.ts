@@ -15,7 +15,7 @@ export class SettingsModalComponent implements OnInit {
     faTimes = faTimes
 
     //Generations
-    gens = {}
+    gens : any = {}
 
     //Lang
     lang = ""
