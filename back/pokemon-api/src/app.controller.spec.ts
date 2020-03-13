@@ -26,9 +26,12 @@ describe('AppController CRUD', () => {
     await request(server).get('/api/pokemon/1').expect(({ body }) => body.id_pokemon === 1);
   });
 
-  test('GET a pokemon', async () => {
-    await request(server).get('/api/pokemon/random?one=true')
-      .expect(({ body }) => body.generation === 1);
+  test('GET a pokemon by gens', async () => {
+    const intNames = ['one','two','three','four', 'five','six','seven']
+    for (let i = 1; i < 8; i++) {
+      await request(server).get(`/api/pokemon/random?${intNames[i-1]}=true&`).expect(({ body }) => body.generation === i);      
+    }
+      
   });
 
   test('UPDATE a pokemon', async () => {

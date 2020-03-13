@@ -31,13 +31,16 @@ app-main-page {
         margin-right: 15%;
         img {
           //   filter: brightness(0);
-        //   transition: 0.5s;
+          //   transition: 0.5s;
           margin-left: 16%;
           z-index: 100;
           display: none;
           max-height: 520px;
           width: 275px;
           display: block;
+        }
+        app-poke-loader {
+          margin: 0 250px;
         }
         i {
           position: absolute;
@@ -58,13 +61,42 @@ app-main-page {
       .button-row {
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
         > * {
-          margin: 0 0.5em;
+          margin: 0 0.5em 0.5em;
         }
       }
       h2 {
         margin-bottom: 0.5rem;
       }
+    }
+  }
+
+  @media screen and (max-width: 965px) {
+    .card {
+      overflow: hidden;
+      max-width: 445px;
+      .card-image {
+        width: auto;
+        > div {
+          margin-right: 0;
+          img {
+            margin: 0 auto;
+          }
+          app-poke-loader {
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .card {
+      width: 100vw;
+      height: 100vh;
+      border: 0 !important;
+      border-radius: 0;
     }
   }
 }
