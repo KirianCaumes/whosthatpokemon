@@ -5,8 +5,8 @@
     "main": "api/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "cd back/pokemon-api && npm run start:prod",
-        "heroku-postbuild": "cd back/pokemon-api && npm install -g nest &&  npm install && npm run build && cd ../../front && npm install && npm run build && mkdir -p ../back/pokemon-api/client && cp -a dist/front/. ../back/pokemon-api/client/"
+        "start": "cd back && npm run start:prod",
+        "heroku-postbuild": "cd back && npm install -g nest &&  npm install && npm run build && cd ../front && npm install && npm run build && mkdir -p ../back/client && cp -a dist/front/. ../back/client/"
     },
     "author": "KirianCaumes",
     "license": "MIT",
