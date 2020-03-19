@@ -12,19 +12,22 @@ describe('AppController CRUD', () => {
     app = await module.createNestApplication();
     server = app.getHttpServer();
     app.init();
+
+    jest.setTimeout(30000)
+
     await request(server).delete('/api/pokemon/deleteALL').set('Accept', 'application/json')
-  });
+  },30000);
 
   test('GET all pokemons', async () => {
     await request(server).post('/api/pokemon/createALL')
     await request(server).get('/api/pokemon/').expect(({ body }) => body.length === 890);
-  });
+  },30000);
 
 
   test('GET a pokemon', async () => {
     await request(server).post('/api/pokemon/createALL')
     await request(server).get('/api/pokemon/1').expect(({ body }) => body.id_pokemon === 1);
-  });
+  },30000);
 
   test('GET a pokemon by gens', async () => {
     const intNames = ['one','two','three','four', 'five','six','seven']
@@ -32,7 +35,7 @@ describe('AppController CRUD', () => {
       await request(server).get(`/api/pokemon/random?${intNames[i-1]}=true&`).expect(({ body }) => body.generation === i);      
     }
       
-  });
+  },30000);
 
   test('UPDATE a pokemon', async () => {
     let monPokemon = {
@@ -76,7 +79,7 @@ describe('AppController CRUD', () => {
       .expect(({ body }) => body.name === monPokemon.name);
 
 
-  });
+  },30000);
 
   test('CREATE a pokemon', async () => {
     const monPokemon = {
@@ -98,12 +101,12 @@ describe('AppController CRUD', () => {
       .post('/api/pokemon/create')
       .send(monPokemon)
       .expect(({ body }) => body.name === monPokemon.name);
-  });
+  },30000);
 
   test('CREATE pokemons', async () => {
     await request(server).post('/api/pokemon/createALL')
     await request(server).get('/api/pokemon/').expect(({ body }) => body.length === 890);
-  });
+  },30000);
 
   test('DELETE a pokemon', async () => {
     const monPokemon = {
@@ -129,10 +132,10 @@ describe('AppController CRUD', () => {
     await request(server).delete('/api/pokemon/delete/1')
 
     await request(server).get('/api/pokemon/').expect(({ body }) => body.length === 0);
-  });
+  },30000);
 
   afterAll(async () => {
     await request(server).delete('/api/pokemon/deleteALL').set('Accept', 'application/json')
     await request(server).post('/api/pokemon/createALL')
-  });
+  },30000);
 });

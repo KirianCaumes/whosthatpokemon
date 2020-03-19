@@ -11,9 +11,11 @@ describe('AppService', () => {
     }).compile();
 
     service = module.get<AppService>(AppService);
+
+    jest.setTimeout(30000)
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
-  });
+  },30000);
 });

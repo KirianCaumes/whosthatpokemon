@@ -17,4 +17,7 @@ constructor(@InjectModel('User') private readonly user : Model<User>, @InjectCon
     return this.user(user).save();
   }
 
+  async deleteAllUsers(): Promise<User> {
+    return this.user.deleteMany();
+  }
 }

@@ -15,13 +15,17 @@ describe('User Controller', () => {
 
     server = app.getHttpServer();
     app.init();
-  });
+
+    jest.setTimeout(30000)
+
+    await request(server).delete('/api/user/deleteALL').set('Accept', 'application/json')
+  },30000);
 
   test('GET users list', async () => {
     await request(server)
       .get('/api/user/list')
       .expect(({ body }) => body.length != 0);
-  });
+  },30000);
 
   test('POST a user', async () => {
     const myUser = {
@@ -42,6 +46,6 @@ describe('User Controller', () => {
       .post('/api/user/insert')
       .send(myUser)
       .expect(({ body }) => body.name === myUser.name);
-  });
+  },30000);
 
 });

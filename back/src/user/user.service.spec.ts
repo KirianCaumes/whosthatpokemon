@@ -11,9 +11,11 @@ describe('UserService', () => {
     }).compile();
 
     service = module.get<UserService>(UserService);
-  });
+
+    jest.setTimeout(30000)
+  },30000);
 
   it('should be defined', () => {
     expect(service).toBeDefined();
-  });
+  },30000);
 });
